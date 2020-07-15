@@ -5,7 +5,7 @@ Django Kanban Board
 description: TODO
 
 Poetry
-""""""
+^^^^^^
 
 
 #. Download and install poetry (https://github.com/K900/poetry#installation)
@@ -20,3 +20,9 @@ Packaging and publishing
 #. poetry build
 #. Make sure you have correct credentials set up (https://python-poetry.org/docs/repositories/#adding-credentials)
 #. poetry publish
+
+Generating setup.py from pyproject.toml
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+#. dephell deps convert

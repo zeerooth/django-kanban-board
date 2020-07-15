@@ -35,6 +35,6 @@ setup(
     packages=['kanban_board'],
     package_dir={"": "."},
     package_data={},
-    install_requires=['django==2.*,>=2.0.0', 'toml==0.*,>=0.9.0'],
+    install_requires=['django>=2.0', 'toml==0.*,>=0.9.0'],
     extras_require={"dev": ["bandit==1.*,>=1.6.2", "dephell==0.*,>=0.8.3", "mypy==0.*,>=0.782.0", "pylint==2.*,>=2.5.3", "pytest==3.*,>=3.0.0", "pytest-cov==2.*,>=2.4.0"]},
 )
