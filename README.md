@@ -2,7 +2,7 @@
 
 description: TODO
 
-##### Poetry
+### Poetry
 
 1. Download and install poetry (https://github.com/K900/poetry#installation)
 2. Run poetry install and poetry shell to access the environment
@@ -14,3 +14,7 @@ description: TODO
 1. poetry build
 2. Make sure you have correct credentials set up (https://python-poetry.org/docs/repositories/#adding-credentials)
 3. poetry publish
+
+### Generating setup.py from pyproject.toml
+
+1. dephell deps convert
