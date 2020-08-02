@@ -12,6 +12,7 @@ def kanban_board(request, id):
         board_elements_list += tmp_el
     
     return render(request, 'kanban_board', 
-        context={"kanban_board": board, 
-                 "kanban_board_elements": board_elements,
-                })
+        context={
+            "kanban_board": board, 
+            "kanban_board_elements": board_elements,
+        })

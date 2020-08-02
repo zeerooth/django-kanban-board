@@ -2,6 +2,24 @@
 
 description: TODO
 
+## Installation
+
+1. Add `kanban_board` to INSTALLED_APPS in settings.py:
+INSTALLED_APPS = [
+    ...
+    'kanban_board',
+]
+2. Add the following code to urlpatterns in urls.py:
+from django.urls import path
+import kanban_board
+...
+urlpatterns = [
+    ...
+    path('kanban-board/', kanban_board.urls),
+]
+
+## Development
+
 ### Poetry
 
 1. Download and install poetry (https://github.com/K900/poetry#installation)
