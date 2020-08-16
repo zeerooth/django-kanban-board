@@ -15,7 +15,7 @@ import kanban_board
 ...
 urlpatterns = [
     ...
-    path('kanban-board/', kanban_board.urls),
+    path('kanban-board/', include('kanban_board.urls')),
 ]
 
 ## Development

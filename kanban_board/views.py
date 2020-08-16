@@ -3,7 +3,7 @@ from .models import KanbanBoard, KanbanBoardElement
 
 def kanban_board(request, id):
     board = KanbanBoard.objects.get(id=id)
-    board_elements = KanbanBoardElement.objects.get(kanban_board_parent_id=id)
+    board_elements = board.elements.all()
     board_elements_list = []
     for board_element in board_elements:
         tmp_el = {}
@@ -11,7 +11,7 @@ def kanban_board(request, id):
             tmp_el[key] = value
         board_elements_list += tmp_el
     
-    return render(request, 'kanban_board', 
+    return render(request, 'kanban_board/_board.html', 
         context={
             "kanban_board": board, 
             "kanban_board_elements": board_elements,

@@ -3,13 +3,17 @@ import uuid
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from typing import List
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from gm2m import GM2MField
 
 class KanbanBoard(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(_("KanbanBoardName"), max_length=255)
+    elements = GM2MField()
 
     class Meta:
-        abstract = True
+        app_label = 'kanban_board'
 
 DEFAULT_KANBAN_BOARD_COLUMNS = [
     ('waiting', _('Waiting')),
@@ -18,12 +22,17 @@ DEFAULT_KANBAN_BOARD_COLUMNS = [
 ]
 
 class KanbanBoardElement(models.Model):
-    kanban_board_parent_id = models.ForeignKey(KanbanBoard, on_delete=models.CASCADE, blank=True, null=True)
+    kanban_board_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    kanban_board_parent = GenericForeignKey('kanban_board_content_type', 'kanban_board_parent_id')
+    kanban_board_parent_id = models.UUIDField(editable=False)
+
     kanban_board_state = models.CharField(_("KanbanBoardElementState"), choices=DEFAULT_KANBAN_BOARD_COLUMNS, max_length=255)
 
+    kanban_board_fields: List[str] = []
+
     def kanban_board_field_tuples(self):
-        return [(str(x), x.model.getattr(x)) for x in self._meta.get_fields()]
+        return [(x.name, str(getattr(self, x.name))) for x in self._meta.fields if x.name in self.kanban_board_fields]
 
     class Meta:
         abstract = True
-        kanban_board_fields: List[str] = []
+        app_label = 'kanban_board'
