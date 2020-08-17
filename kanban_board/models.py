@@ -3,12 +3,11 @@ import uuid
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from typing import List
-from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from gm2m import GM2MField
 
 class KanbanBoard(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     name = models.CharField(_("KanbanBoardName"), max_length=255)
     elements = GM2MField()
 
@@ -22,9 +21,7 @@ DEFAULT_KANBAN_BOARD_COLUMNS = [
 ]
 
 class KanbanBoardElement(models.Model):
-    kanban_board_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    kanban_board_parent = GenericForeignKey('kanban_board_content_type', 'kanban_board_parent_id')
-    kanban_board_parent_id = models.UUIDField(editable=False)
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
 
     kanban_board_state = models.CharField(_("KanbanBoardElementState"), choices=DEFAULT_KANBAN_BOARD_COLUMNS, max_length=255)
 
