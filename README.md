@@ -5,11 +5,17 @@ description: TODO
 ## Installation
 
 1. Add `kanban_board` to INSTALLED_APPS in settings.py:
+
+```python
 INSTALLED_APPS = [
     ...
     'kanban_board',
 ]
+```
+
 2. Add the following code to urlpatterns in urls.py:
+
+```python
 from django.urls import path
 import kanban_board
 ...
@@ -17,6 +23,7 @@ urlpatterns = [
     ...
     path('kanban-board/', include('kanban_board.urls')),
 ]
+```
 
 ## Development
 
