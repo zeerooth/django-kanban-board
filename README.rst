@@ -4,6 +4,35 @@ Django Kanban Board
 
 description: TODO
 
+Installation
+------------
+
+
+#. Add ``kanban_board`` to INSTALLED_APPS in settings.py:
+
+.. code-block:: python
+
+   INSTALLED_APPS = [
+       ...
+       'kanban_board',
+   ]
+
+
+#. Add the following code to urlpatterns in urls.py:
+
+.. code-block:: python
+
+   from django.urls import path
+   import kanban_board
+   ...
+   urlpatterns = [
+       ...
+       path('kanban-board/', include('kanban_board.urls')),
+   ]
+
+Development
+-----------
+
 Poetry
 ^^^^^^
 
