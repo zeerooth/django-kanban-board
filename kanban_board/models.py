@@ -21,8 +21,6 @@ DEFAULT_KANBAN_BOARD_COLUMNS = [
 ]
 
 class KanbanBoardElement(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
-
     kanban_board_state = models.CharField(_("KanbanBoardElementState"), choices=DEFAULT_KANBAN_BOARD_COLUMNS, max_length=255)
 
     kanban_board_fields: List[str] = []

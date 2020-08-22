@@ -7,11 +7,14 @@ def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
     board_elements = board.elements.all()
     
-    return render(request, 'kanban_board/_board.html', 
+    return render(request, 'kanban_board/board.html', 
         context={
             "kanban_board": board, 
             "kanban_board_elements": board_elements,
         })
+
+def view_element(request, model, id):
+    pass
 
 def change_element_status(request):
     # check method
@@ -20,7 +23,7 @@ def change_element_status(request):
 
     # get all required parameters
     parent_id = UUID(request.POST.get('kb_parent_id'))
-    element_id = UUID(request.POST.get('kb_element_id'))
+    element_id = int(request.POST.get('kb_element_id'))
     new_status = request.POST.get('kb_new_status')
 
     # validate if all required parameters are present

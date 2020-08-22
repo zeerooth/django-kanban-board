@@ -19,8 +19,8 @@ class BackendTestCase(TestCase):
         self.assertEqual(sampleElement.kanban_board_field_tuples(), [("name", "Conduct a task number 1"), ("deadline", '2020-06-01 00:00:00+00:00'), ("author", "Natalie Example"), ("assignee", "Grzegorz Brzęczyszczykiewicz")])
     
     def test_board_view(self):
-        response = self.client.get('/kanban-board/' + str(self.board.id))
-        self.assertRedirects(response, '/kanban-board/' + str(self.board.id) + "/", status_code=301)
+        response = self.client.get('/kanban-board/' + str(self.board.id) + "/")
+        self.assertEqual(response.status_code, 200)
     
     def test_change_status_view(self):
         http_req = HttpRequest()
@@ -28,4 +28,4 @@ class BackendTestCase(TestCase):
         http_req.POST = {"kb_parent_id": str(self.board.id), "kb_element_id": str(self.task1.id), "kb_new_status": "completed"}
         response = self.client.post('/kanban-board/move-element/', data=http_req.POST)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(self.task1.kanban_board_state, "completed")
+        self.assertEqual(Task.objects.get(pk=self.task1.id).kanban_board_state, "completed")
