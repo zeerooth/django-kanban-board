@@ -6,6 +6,7 @@ from uuid import UUID
 def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
     board_elements = KanbanBoardElement.objects.all().select_subclasses()
+    print(board_elements)
     
     return render(request, 'kanban_board/board.html', 
         context={
