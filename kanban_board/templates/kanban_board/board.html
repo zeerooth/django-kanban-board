@@ -1,8 +1,10 @@
 {% extends "kanban_board/root.html" %}
+{% regroup kanban_board_elements by kanban_board_state as kanban_board_grouped_elements %}
 {% block kanban_board_inner_content %}
     {% for el in kanban_board_elements %}
         <p>{{ el.name }}</p>
     {% endfor %}
+    {{ kanban_board_grouped_elements.count }}
     <div class="kanban-board">
         <div class="kanban-board-grid">
             {% for column in kanban_board_grouped_elements %}
