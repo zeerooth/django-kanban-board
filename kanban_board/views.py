@@ -5,7 +5,7 @@ from uuid import UUID
 
 def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
-    board_elements = board.elements.all()
+    board_elements = KanbanBoardElement.objects.all().select_subclasses()
     
     return render(request, 'kanban_board/board.html', 
         context={
@@ -23,8 +23,8 @@ def change_element_status(request):
 
     # get all required parameters
     parent_id = UUID(request.POST.get('kb_parent_id'))
-    element_id = int(request.POST.get('kb_element_id'))
-    new_status = request.POST.get('kb_new_status')
+    element_id = UUID(request.POST.get('kb_element_id'))
+    new_status = int(request.POST.get('kb_new_status'))
 
     # validate if all required parameters are present
     missing_params = []
@@ -36,8 +36,8 @@ def change_element_status(request):
 
     # actual logic
     board = KanbanBoard.objects.get(pk=parent_id)
-    el = board.elements.get(pk=element_id)
-    el.kanban_board_state = new_status
+    el = KanbanBoardElement.objects.get(pk=element_id)
+    el.kanban_board_state = board.states.get(pk=new_status)
     el.save()
 
     return HttpResponse(status=200)

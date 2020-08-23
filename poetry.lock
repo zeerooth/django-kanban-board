@@ -369,6 +369,17 @@ version = "1.0"
 Django = ">=2.2"
 
 [[package]]
+category = "main"
+description = "Django model mixins and utilities"
+name = "django-model-utils"
+optional = false
+python-versions = "*"
+version = "4.0.0"
+
+[package.dependencies]
+Django = ">=2.0.1"
+
+[[package]]
 category = "dev"
 description = "Docutils -- Python Documentation Utilities"
 name = "docutils"
@@ -863,7 +874,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "0b592a95f9535f2ca05ce74bf56bce224155596100d799e9e1f33fac9fa3fe6c"
+content-hash = "82ce4cb20366e81751f2e93989b57f88f35ca766576dc533006ce8b61b60622d"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -1018,6 +1029,10 @@ django = [
 ]
 django-gm2m = [
     {file = "django-gm2m-1.0.tar.gz", hash = "sha256:cc1d1a88e370a001542c105dfbd81b29ea1f7e429208cf74feb1ca5e07cce469"},
+]
+django-model-utils = [
+    {file = "django-model-utils-4.0.0.tar.gz", hash = "sha256:adf09e5be15122a7f4e372cb5a6dd512bbf8d78a23a90770ad0983ee9d909061"},
+    {file = "django_model_utils-4.0.0-py2.py3-none-any.whl", hash = "sha256:9cf882e5b604421b62dbe57ad2b18464dc9c8f963fc3f9831badccae66c1139c"},
 ]
 docutils = [
     {file = "docutils-0.16-py2.py3-none-any.whl", hash = "sha256:0c5b78adfbf7762415433f5515cd5c9e762339e23369dbe8000d84a4bf4ab3af"},
