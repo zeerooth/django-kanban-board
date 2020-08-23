@@ -2,7 +2,7 @@
 {% block kanban_board_inner_content %}
 <div class="kanban-board-panel">
     {% for board in kanban_boards %}
-        <a href="/{{ board.id }}">{{ board.name }}</a>
+        <a href="{{ request.path }}{{ board.id }}">{{ board.name }}</a>
     {% endfor %}
 <div>
 {% endblock %}

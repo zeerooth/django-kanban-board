@@ -26,7 +26,7 @@ class BackendTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
     
     def test_panel_view(self):
-        response = self.client.get('/kanban-board/panel/')
+        response = self.client.get('/kanban-board/')
         self.assertEqual(response.status_code, 200)
     
     def test_change_status_view(self):
