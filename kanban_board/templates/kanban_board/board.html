@@ -1,14 +1,15 @@
 {% extends "kanban_board/root.html" %}
+{% regroup kanban_board_elements by kanban_board_state as kanban_board_grouped_elements %}
 {% block kanban_board_inner_content %}
     <div class="kanban-board">
         <div class="kanban-board-grid">
-            {% for column_key, column_value in kanban_board_elements.items %}
+            {% for column in kanban_board_grouped_elements %}
                 <div class="kanban-board-column">
                     <div class="kanban-board-column-header">
-                        <h2>{{ column_key }}</h2>
+                        <h2>{{ column.grouper }}</h2>
                     </div>
                     <div class="kanban-board-column-content">
-                        {% for element in column_value %}
+                        {% for element in column.list %}
                         <div class="kanban-board-element">
                             {% for field in element.kanban_board_field_tuples %}
                                 <p>{{ field.0 }} - {{ field.1 }}</p>
