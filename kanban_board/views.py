@@ -5,13 +5,15 @@ from uuid import UUID
 
 def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
-    board_elements = KanbanBoardElement.objects.all().select_subclasses()
-    print(board_elements)
+    board_elements = list(KanbanBoardElement.objects.all().select_subclasses())
+    elements_grouped = {}
+    for element in board_elements:
+        elements_grouped[element.kanban_board_state.name] = element
     
     return render(request, 'kanban_board/board.html', 
         context={
             "kanban_board": board, 
-            "kanban_board_elements": board_elements,
+            "kanban_board_elements": elements_grouped,
         })
 
 def board_panel(request):
