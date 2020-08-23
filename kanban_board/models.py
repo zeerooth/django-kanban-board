@@ -9,6 +9,9 @@ from model_utils.managers import InheritanceManager
 class KanbanBoardState(models.Model):
     name = models.CharField(_("KanbanBoardStateName"), max_length=255)
 
+    def __str__(self):
+        return "Board state: " + self.name
+
 
 class KanbanBoard(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
@@ -17,6 +20,9 @@ class KanbanBoard(models.Model):
 
     class Meta:
         app_label = 'kanban_board'
+    
+    def __str__(self):
+        return "Kanban board: " + self.name
 
 
 class KanbanBoardElement(models.Model):
