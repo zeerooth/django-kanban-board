@@ -10,7 +10,7 @@ class KanbanBoardState(models.Model):
     name = models.CharField(_("KanbanBoardStateName"), max_length=255)
 
     def __str__(self):
-        return "Board state: " + self.name
+        return self.name
 
 
 class KanbanBoard(models.Model):
@@ -22,7 +22,7 @@ class KanbanBoard(models.Model):
         app_label = 'kanban_board'
     
     def __str__(self):
-        return "Kanban board: " + self.name
+        return self.name
 
 
 class KanbanBoardElement(models.Model):

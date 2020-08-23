@@ -13,7 +13,14 @@ def kanban_board(request, id):
             "kanban_board_elements": board_elements,
         })
 
-def view_element(request, model, id):
+def board_panel(request):
+    boards = KanbanBoard.objects.all()
+    return render(request, 'kanban_board/panel.html', 
+        context={
+            "kanban_boards": boards, 
+        })
+
+def element(request, model, id):
     pass
 
 def change_element_status(request):

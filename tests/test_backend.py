@@ -25,6 +25,10 @@ class BackendTestCase(TestCase):
         response = self.client.get('/kanban-board/' + str(self.board.id) + "/")
         self.assertEqual(response.status_code, 200)
     
+    def test_panel_view(self):
+        response = self.client.get('/kanban-board/panel/')
+        self.assertEqual(response.status_code, 200)
+    
     def test_change_status_view(self):
         http_req = HttpRequest()
         http_req.method = "POST"

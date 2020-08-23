@@ -1,0 +1,6 @@
+{% extends "kanban_board/root.html" %}
+<div class="kanban-board-panel">
+    {% for board in kanban_boards %}
+        <a href="/{{ board.id }}">{{ board.name }}</a>
+    {% endfor %}
+<div>
