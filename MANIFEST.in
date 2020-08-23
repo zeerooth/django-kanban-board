@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+recursive-include kanban_board/migrations *
+recursive-include kanban_board/templates *
+recursive-include kanban_board/static *
+recursive-exclude * *.py
