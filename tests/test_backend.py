@@ -1,21 +1,23 @@
 from django.test import TestCase, Client
 from django.http import HttpRequest
 from .test_project.models import Task, Person
-from kanban_board.models import KanbanBoard, KanbanBoardState
+from kanban_board.models import KanbanBoard, KanbanBoardState, Workflow
 import datetime
 
 class BackendTestCase(TestCase):
     def setUp(self):
         self.client = Client()
-        states = [KanbanBoardState.objects.create(name="Waiting"), KanbanBoardState.objects.create(name="In Progress"), KanbanBoardState.objects.create(name="Done")]
-        self.board = KanbanBoard.objects.create(name="TeamworkBoard")
-        self.board.states.set(states)
+        workflow = Workflow.objects.create(name="Sample workflow")
+        states = [KanbanBoardState.objects.create(name="Waiting", workflow=workflow), KanbanBoardState.objects.create(name="In Progress", workflow=workflow), KanbanBoardState.objects.create(name="Done", workflow=workflow)]
+        self.board = KanbanBoard.objects.create(name="TeamworkBoard", workflow=workflow)
         natalie = Person.objects.create(name="Natalie Example", department="management")
         kyosti = Person.objects.create(name="Kyösti Haapalainen", department="sales")
         grzegorz = Person.objects.create(name="Grzegorz Brzęczyszczykiewicz", department="technical")
         self.tasks = [Task.objects.create(name="Conduct a task number 1", kanban_board_state=states[0], kanban_board_parent=self.board, deadline=datetime.datetime(year=2020, month=6, day=1), author=natalie, assignee=grzegorz), 
                       Task.objects.create(name="Conduct a task number 2", kanban_board_state=states[1], kanban_board_parent=self.board, deadline=None, author=kyosti, assignee=None)]
-        self.board.elements = self.tasks
+    
+    def test_default_element_value(self):
+        self.assertEqual(Task.objects.first().kanban_board_state, self.board.states.first())
 
     def test_field_tuples(self):
         sampleElement = Task.objects.get(name="Conduct a task number 1")

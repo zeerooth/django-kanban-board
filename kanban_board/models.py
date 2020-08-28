@@ -1,22 +1,34 @@
 import uuid
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from typing import List
 from model_utils.managers import InheritanceManager
+from ordered_model.models import OrderedModel
 
 
-class KanbanBoardState(models.Model):
-    name = models.CharField(_("KanbanBoardStateName"), max_length=255)
+class Workflow(models.Model):
+    name = models.CharField(_("WorkflowName"), max_length=255)
 
     def __str__(self):
         return self.name
 
 
+class KanbanBoardState(OrderedModel):
+    workflow = models.ForeignKey(_("KanbanBoardWorkflow"), on_delete=models.CASCADE)
+    name = models.CharField(_("KanbanBoardStateName"), max_length=255)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta(OrderedModel.Meta):
+        pass
+
+
 class KanbanBoard(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     name = models.CharField(_("KanbanBoardName"), max_length=255)
-    states = models.ManyToManyField(KanbanBoardState)
+    workflow = models.ForeignKey(Workflow, on_delete=models.PROTECT)
 
     class Meta:
         app_label = 'kanban_board'
@@ -37,9 +49,10 @@ class KanbanBoardElement(models.Model):
     def kanban_board_field_tuples(self):
         return [(x.name, str(getattr(self, x.name))) for x in self._meta.fields if x.name in self.kanban_board_fields]
     
-    def save(self, *args, **kwargs): 
-        super(KanbanBoardElement, self).save(*args, **kwargs) 
-        self.kanban_board_state = self.kanban_board_parent.states.first()
+    def save(self, *args, **kwargs):
+        if self.kanban_board_state is None:
+            self.kanban_board_state = self.kanban_board_parent.states.first()
+        super(KanbanBoardElement, self).save(*args, **kwargs)
 
     class Meta:
         app_label = 'kanban_board'

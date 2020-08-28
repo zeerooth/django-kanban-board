@@ -30,6 +30,30 @@ Installation
        path('kanban-board/', include('kanban_board.urls')),
    ]
 
+
+#. Django Kanban Board uses tailwind for rendering its component, so either install it by yourself (https://tailwindcss.com/docs/installation) or simply add it to your template via the files provided in this package:
+
+.. code-block:: html
+
+   {% load static %}
+   ...
+   <link href="{% static 'kanban_board/css/tailwind.min.css' %}" rel="stylesheet">
+
+
+#. In your projects' models.py create a new model that inherits from kanban_board.models.KanbanBoardElement:
+
+.. code-block:: python
+
+   class Task(KanbanBoardElement):
+       name = models.CharField("TaskName", max_length=65535)
+       deadline = models.DateTimeField("Deadline", blank=True, null=True)
+       # add other fields
+
+       kanban_board_fields = ["name", "deadline"] # here assign which of them will be displayed on your kanban boards
+
+The beauty here lies in the fact that you can create elements for kanban boards using your existing models!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Development
 -----------
 

@@ -380,6 +380,14 @@ version = "4.0.0"
 Django = ">=2.0.1"
 
 [[package]]
+category = "main"
+description = "Allows Django models to be ordered and provides a simple admin interface for reordering them."
+name = "django-ordered-model"
+optional = false
+python-versions = "*"
+version = "3.4.1"
+
+[[package]]
 category = "dev"
 description = "Docutils -- Python Documentation Utilities"
 name = "docutils"
@@ -874,7 +882,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "82ce4cb20366e81751f2e93989b57f88f35ca766576dc533006ce8b61b60622d"
+content-hash = "9ac01673a431c0d445a3d2b1292633ab9b8a8c4849e5cada6c69236079c73b62"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -1033,6 +1041,10 @@ django-gm2m = [
 django-model-utils = [
     {file = "django-model-utils-4.0.0.tar.gz", hash = "sha256:adf09e5be15122a7f4e372cb5a6dd512bbf8d78a23a90770ad0983ee9d909061"},
     {file = "django_model_utils-4.0.0-py2.py3-none-any.whl", hash = "sha256:9cf882e5b604421b62dbe57ad2b18464dc9c8f963fc3f9831badccae66c1139c"},
+]
+django-ordered-model = [
+    {file = "django-ordered-model-3.4.1.tar.gz", hash = "sha256:d867166ed4dd12501139e119cbbc5b4d19798a3e72740aef0af4879ba97102cf"},
+    {file = "django_ordered_model-3.4.1-py3-none-any.whl", hash = "sha256:29af6624cf3505daaf0df00e2df1d0726dd777b95e08f304d5ad0264092aa934"},
 ]
 docutils = [
     {file = "docutils-0.16-py2.py3-none-any.whl", hash = "sha256:0c5b78adfbf7762415433f5515cd5c9e762339e23369dbe8000d84a4bf4ab3af"},

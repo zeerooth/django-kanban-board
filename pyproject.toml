@@ -26,6 +26,7 @@ toml = "^0.9"
 django = ">=2.0,<3.1"
 django-gm2m = "^1.0"
 django-model-utils = "^4.0.0"
+django-ordered-model = "^3.4.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
