@@ -17,6 +17,7 @@ class Workflow(models.Model):
 class KanbanBoardState(OrderedModel):
     workflow = models.ForeignKey(Workflow, on_delete=models.CASCADE)
     name = models.CharField(_("KanbanBoardStateName"), max_length=255)
+    order_with_respect_to = 'workflow'
 
     def __str__(self):
         return self.name
