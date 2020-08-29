@@ -1,9 +1,9 @@
 {% extends "kanban_board/root.html" %}
 {% block kanban_board_inner_content %}
     <section class="kanban-board text-gray-700 body-font">
-        <div class="px-5 py-24 mx-auto">
-            <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">{{ kanban_board.name }}</h1>
+        <div class="px-5 py-12 mx-auto">
+            <div class="flex flex-wrap w-full mb-10 flex-col items-center text-center">
+                <h1 class="sm:text-5xl text-2xl font-medium title-font mb-2 text-gray-900">{{ kanban_board.name }}</h1>
             </div>
             <div class="flex -m-4">
                 {% for column, values in kanban_board_elements.items %}
@@ -12,13 +12,15 @@
                             <div class="flex flex-wrap w-full mb-5 flex-col items-center text-center">
                                 <h2 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">{{ column }}</h2>
                             </div>
-                            <div class="kanban-board-column-content mb-2">
+                            <div class="mb-2">
                                 {% for element in values %}
-                                <div class="kanban-board-element border border-gray-300 p-6 rounded-lg">
-                                    <h3 class="text-lg text-gray-900 font-medium title-font mb-2">{{ element }}</h3>
-                                    {% for field in element.kanban_board_field_tuples %}
-                                        <p class="leading-relaxed text-base"><b>{{ field.0 }}:</b>&nbsp;{{ field.1 }}</p>
-                                    {% endfor %}
+                                <div class="kanban-board-element border border-gray-300 rounded-lg mb-2">
+                                    <div class="flex flex-col sm:flex-row sm:items-center items-start mx-auto">
+                                        <h3 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">{{ element }}</h3>
+                                        {% for field in element.kanban_board_field_tuples %}
+                                            <p class="leading-relaxed text-base"><b>{{ field.0 }}:</b>&nbsp;{{ field.1 }}</p>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                                 {% endfor %}
                             </div>

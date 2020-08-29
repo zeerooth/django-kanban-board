@@ -6,7 +6,7 @@ class KanbanBoardStateInline(OrderedStackedInline):
     model = KanbanBoardState
     fields = ('workflow', 'name', 'move_up_down_links', )
     readonly_fields = ('workflow', 'move_up_down_links', )
-    extra = 1
+    extra = 0
     ordering = ('order',)
 
 class WorkflowAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
