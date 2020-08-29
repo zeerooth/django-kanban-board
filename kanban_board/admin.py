@@ -4,9 +4,10 @@ from kanban_board.models import KanbanBoard, KanbanBoardState, Workflow
 
 class KanbanBoardStateInline(OrderedStackedInline):
     model = KanbanBoardState
-    fields = ('move_up_down_links', )
-    readonly_fields = ('move_up_down_links', )
+    fields = ('workflow', 'name', 'move_up_down_links', )
+    readonly_fields = ('workflow', 'move_up_down_links', )
     extra = 1
+    ordering = ('order',)
 
 class WorkflowAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
     list_display = ('name', )

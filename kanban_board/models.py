@@ -22,7 +22,7 @@ class KanbanBoardState(OrderedModel):
         return self.name
     
     class Meta(OrderedModel.Meta):
-        pass
+        ordering = ('order',)
 
 
 class KanbanBoard(models.Model):
