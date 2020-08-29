@@ -4,11 +4,12 @@ description: TODO
 
 ## Installation
 
-1. Add `kanban_board` to INSTALLED_APPS in settings.py:
+1. Add `kanban_board` and `ordered_model` to INSTALLED_APPS in settings.py:
 
 ```python
 INSTALLED_APPS = [
     ...
+    'ordered_model',
     'kanban_board',
 ]
 ```

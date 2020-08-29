@@ -2,20 +2,19 @@ from django.shortcuts import render
 from .models import KanbanBoard, KanbanBoardElement
 from django.http import JsonResponse, HttpResponse
 from uuid import UUID
+from collections import defaultdict
 
 def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
     board_elements = list(KanbanBoardElement.objects.filter(kanban_board_parent=board).select_subclasses())
-    elements_grouped = {}
+    elements_grouped = defaultdict(list)
     for element in board_elements:
         if element.kanban_board_state is not None:
-            elements_grouped[element.kanban_board_state.name] = element
-    print(board_elements)
-    print(elements_grouped)
+            elements_grouped[element.kanban_board_state.name].append(element)
     return render(request, 'kanban_board/board.html', 
         context={
             "kanban_board": board, 
-            "kanban_board_elements": board_elements,
+            "kanban_board_elements": elements_grouped,
         })
 
 def board_panel(request):

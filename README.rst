@@ -8,12 +8,13 @@ Installation
 ------------
 
 
-#. Add ``kanban_board`` to INSTALLED_APPS in settings.py:
+#. Add ``kanban_board`` and ``ordered_model`` to INSTALLED_APPS in settings.py:
 
 .. code-block:: python
 
    INSTALLED_APPS = [
        ...
+       'ordered_model',
        'kanban_board',
    ]
 
