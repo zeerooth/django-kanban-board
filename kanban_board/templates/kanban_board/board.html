@@ -2,7 +2,7 @@
 {% block kanban_board_inner_content %}
     <section class="kanban-board text-gray-500 body-font bg-gray-900">
         <div class="kanban-board-grid">
-            {% for column, values in kanban_board_elements %}
+            {% for column, values in kanban_board_elements.items %}
                 <div class="kanban-board-column">
                     <div class="kanban-board-column-header">
                         <h2>{{ column }}</h2>
