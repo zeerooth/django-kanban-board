@@ -20,7 +20,7 @@ class KanbanBoardState(OrderedModel):
     order_with_respect_to = 'workflow'
 
     def __str__(self):
-        return self.name
+        return self.workflow.name + ": " + self.name
     
     class Meta(OrderedModel.Meta):
         ordering = ('order',)
