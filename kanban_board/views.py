@@ -48,7 +48,7 @@ def change_element_status(request):
     # actual logic
     board = KanbanBoard.objects.get(pk=parent_id)
     el = KanbanBoardElement.objects.get(pk=element_id)
-    el.kanban_board_state = board.states.get(pk=new_status)
+    el.kanban_board_state = board.workflow.kanbanboardstate_set.get(pk=new_status)
     el.save()
 
     return HttpResponse(status=200)

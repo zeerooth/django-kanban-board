@@ -15,7 +15,7 @@ class Workflow(models.Model):
 
 
 class KanbanBoardState(OrderedModel):
-    workflow = models.ForeignKey(_("KanbanBoardWorkflow"), on_delete=models.CASCADE)
+    workflow = models.ForeignKey(Workflow, on_delete=models.CASCADE)
     name = models.CharField(_("KanbanBoardStateName"), max_length=255)
 
     def __str__(self):
@@ -51,7 +51,7 @@ class KanbanBoardElement(models.Model):
     
     def save(self, *args, **kwargs):
         if self.kanban_board_state is None:
-            self.kanban_board_state = self.kanban_board_parent.states.first()
+            self.kanban_board_state = self.kanban_board_parent.workflow.kanbanboardstate_set.first()
         super(KanbanBoardElement, self).save(*args, **kwargs)
 
     class Meta:
