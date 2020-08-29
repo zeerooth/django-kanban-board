@@ -1,6 +1,9 @@
 {% extends "kanban_board/root.html" %}
 {% regroup kanban_board_elements by kanban_board_state as kanban_board_grouped_elements %}
 {% block kanban_board_inner_content %}
+    {% for el in kanban_board_elements %}
+    <p>el.name</p>
+    {% endfor %}
     <section class="kanban-board text-gray-500 body-font bg-gray-900">
         <div class="kanban-board-grid">
             {% for column in kanban_board_grouped_elements %}

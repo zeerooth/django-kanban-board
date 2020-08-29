@@ -10,7 +10,8 @@ def kanban_board(request, id):
     for element in board_elements:
         if element.kanban_board_state is not None:
             elements_grouped[element.kanban_board_state.name] = element
-    
+    print(board_elements)
+    print(elements_grouped)
     return render(request, 'kanban_board/board.html', 
         context={
             "kanban_board": board, 
