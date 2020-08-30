@@ -8,7 +8,7 @@
         <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
             <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
                 {% for board in kanban_boards %}
-                    <a class="text-gray-900 text-lg title-font font-medium mb-2" href="{{ request.path }}{{ board.id }}">{{ board.name }}</a>
+                    <a class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900" href="{{ request.path }}{{ board.id }}">{{ board.name }}</a>
                 {% endfor %}
             </div>
         </div>
