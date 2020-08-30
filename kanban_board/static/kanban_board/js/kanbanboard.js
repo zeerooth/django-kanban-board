@@ -32,11 +32,14 @@ window.addEventListener('load', function() {
     }
 
     const csrftoken = kbGetCookie('csrftoken');
+    var allMoveButtons = document.querySelectorAll(".kanban-board-move");
 
-    document.querySelector(".kanban-board-move").addEventListener('click', function() { 
-        kbPostData(this.dataset.link, { kb_parent_id: this.dataset.board, kb_element_id: this.dataset.element, kb_new_status: this.dataset.targetState }, { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken })
+    Array.from(allMoveButtons).forEach(btn => {
+        btn.addEventListener('click', function(event) {
+            kbPostData(event.target.dataset.link, { kb_parent_id: event.target.dataset.board, kb_element_id: event.target.dataset.element, kb_new_status: event.target.dataset.targetState }, { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken })
             .then(data => {
                 window.location.reload();
             });
+        });
     });
 })
