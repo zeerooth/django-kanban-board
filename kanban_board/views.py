@@ -2,7 +2,9 @@ from django.shortcuts import render
 from .models import KanbanBoard, KanbanBoardElement, KanbanBoardState
 from django.http import JsonResponse, HttpResponse
 from uuid import UUID
+from django.views.decorators.csrf import csrf_protect
 
+@csrf_protect
 def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
     states = list(KanbanBoardState.objects.filter(workflow=board.workflow))
@@ -27,6 +29,7 @@ def board_panel(request):
 def element(request, model, id):
     pass
 
+@csrf_protect
 def change_element_status(request):
     # check method
     if not request.method == "POST":
