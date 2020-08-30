@@ -16,10 +16,26 @@
                                 {% for element in values %}
                                 <div class="kanban-board-element border border-gray-300 rounded-lg mb-2">
                                     <div class="flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-                                        <h3 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">{{ element }}</h3>
-                                        {% for field in element.kanban_board_field_tuples %}
-                                            <p class="leading-relaxed text-base"><b>{{ field.0 }}:</b>&nbsp;{{ field.1 }}</p>
-                                        {% endfor %}
+                                        <div>
+                                            {% if not forloop.parentloop.first %}
+                                                <button data-link="{% url kanban_board.views.change_element_status %}" data-target-state="{{ column.previous.pk }}" data-board="{{ kanban_board.pk }}" data-element="{{ element.pk }}" class="kanban-board-move flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">
+                                                    &lt;
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                        <div class="p-2">
+                                            <h3 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">{{ element }}</h3>
+                                            {% for field in element.kanban_board_field_tuples %}
+                                                <p class="leading-relaxed text-base"><b>{{ field.0 }}:</b>&nbsp;{{ field.1 }}</p>
+                                            {% endfor %}
+                                        </div>
+                                        <div>
+                                            {% if not forloop.parentloop.last %}
+                                                <button data-link="{% url kanban_board.views.change_element_status %}" data-target-state="{{ column.next.pk }}" data-board="{{ kanban_board.pk }}" data-element="{{ element.pk }}" class="kanban-board-move flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">
+                                                    &gt;
+                                                </button>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                                 {% endfor %}

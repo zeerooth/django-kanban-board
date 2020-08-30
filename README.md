@@ -26,7 +26,7 @@ urlpatterns = [
 ]
 ```
 
-3. Django Kanban Board uses tailwind for rendering its component, so either install it by yourself (https://tailwindcss.com/docs/installation) or simply add it to your template via the files provided in this package:
+3. Django Kanban Board uses tailwind.css for rendering its component, so either install it by yourself (https://tailwindcss.com/docs/installation) or simply add it to your template via the files provided in this package:
 
 ```html
 {% load static %}

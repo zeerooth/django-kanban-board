@@ -7,10 +7,10 @@ def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
     states = list(KanbanBoardState.objects.filter(workflow=board.workflow))
     board_elements = list(KanbanBoardElement.objects.filter(kanban_board_parent=board).select_subclasses())
-    elements_grouped = {x.name: [] for x in states}
+    elements_grouped = {x: [] for x in states}
     for element in board_elements:
         if element.kanban_board_state is not None:
-            elements_grouped[element.kanban_board_state.name].append(element)
+            elements_grouped[element.kanban_board_state].append(element)
     return render(request, 'kanban_board/board.html', 
         context={
             "kanban_board": board, 
@@ -43,7 +43,7 @@ def change_element_status(request):
         if param is None:
             missing_params.append(param)
     if len(missing_params) > 0:
-        return JsonResponse({"error": "missing_parameters", "details": missing_params})
+        return JsonResponse({"error": "missing_parameters", "details": missing_params}, status=422)
 
     # actual logic
     board = KanbanBoard.objects.get(pk=parent_id)
@@ -51,5 +51,5 @@ def change_element_status(request):
     el.kanban_board_state = board.workflow.kanbanboardstate_set.get(pk=new_status)
     el.save()
 
-    return HttpResponse(status=200)
+    return JsonResponse({}, status=200)
     
