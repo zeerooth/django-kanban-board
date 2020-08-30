@@ -36,10 +36,9 @@ def change_element_status(request):
         return JsonResponse({"error": "bad_method", "details": "expected POST but got " + str(request.method)}, status=405)
 
     # get all required parameters
-    print(request.POST)
-    parent_id = UUID(request.POST.get('kb_parent_id'))
-    element_id = UUID(request.POST.get('kb_element_id'))
-    new_status = int(request.POST.get('kb_new_status'))
+    parent_id = UUID(request.body.get('kb_parent_id'))
+    element_id = UUID(request.body.get('kb_element_id'))
+    new_status = int(request.body.get('kb_new_status'))
 
     # validate if all required parameters are present
     missing_params = []
