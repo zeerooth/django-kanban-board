@@ -3,6 +3,7 @@ from .models import KanbanBoard, KanbanBoardElement, KanbanBoardState
 from django.http import JsonResponse, HttpResponse
 from uuid import UUID
 from django.views.decorators.csrf import csrf_protect
+import json
 
 @csrf_protect
 def kanban_board(request, id):
@@ -36,9 +37,10 @@ def change_element_status(request):
         return JsonResponse({"error": "bad_method", "details": "expected POST but got " + str(request.method)}, status=405)
 
     # get all required parameters
-    parent_id = UUID(request.body.get('kb_parent_id'))
-    element_id = UUID(request.body.get('kb_element_id'))
-    new_status = int(request.body.get('kb_new_status'))
+    data = json.loads(request.body)
+    parent_id = UUID(data.get('kb_parent_id'))
+    element_id = UUID(data.get('kb_element_id'))
+    new_status = int(data.get('kb_new_status'))
 
     # validate if all required parameters are present
     missing_params = []
