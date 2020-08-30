@@ -18,7 +18,7 @@
                                     <div class="flex flex-col sm:flex-row sm:items-center items-start mx-auto">
                                         <div>
                                             {% if not forloop.parentloop.first %}
-                                                <button data-link="{% url 'kanban_board:change_element_status' %}" data-target-state="{{ column.previous.pk }}" data-board="{{ kanban_board.pk }}" data-element="{{ element.pk }}" class="kanban-board-move flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">
+                                                <button data-link="{% url 'kanban_board:move_element' %}" data-target-state="{{ column.previous.pk }}" data-board="{{ kanban_board.pk }}" data-element="{{ element.pk }}" class="kanban-board-move flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">
                                                     &lt;
                                                 </button>
                                             {% endif %}
@@ -31,7 +31,7 @@
                                         </div>
                                         <div>
                                             {% if not forloop.parentloop.last %}
-                                                <button data-link="{% url 'kanban_board:change_element_status' %}" data-target-state="{{ column.next.pk }}" data-board="{{ kanban_board.pk }}" data-element="{{ element.pk }}" class="kanban-board-move flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">
+                                                <button data-link="{% url 'kanban_board:move_element' %}" data-target-state="{{ column.next.pk }}" data-board="{{ kanban_board.pk }}" data-element="{{ element.pk }}" class="kanban-board-move flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">
                                                     &gt;
                                                 </button>
                                             {% endif %}
