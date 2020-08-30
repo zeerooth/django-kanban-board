@@ -1,8 +1,17 @@
 {% extends "kanban_board/root.html" %}
 {% block kanban_board_inner_content %}
-<div class="kanban-board-panel">
-    {% for board in kanban_boards %}
-        <a href="{{ request.path }}{{ board.id }}">{{ board.name }}</a>
-    {% endfor %}
-<div>
+<section class="text-gray-700 body-font">
+    <div class="container px-5 py-12 mx-auto">
+        <div class="flex flex-wrap w-full mb-10 flex-col items-center text-center">
+            <h1 class="sm:text-5xl text-2xl font-medium title-font mb-2 text-gray-900">Boards</h1>
+        </div>
+        <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+                {% for board in kanban_boards %}
+                    <a class="text-gray-900 text-lg title-font font-medium mb-2" href="{{ request.path }}{{ board.id }}">{{ board.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
