@@ -32,9 +32,7 @@ class BackendTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
     
     def test_change_status_view(self):
-        http_req = HttpRequest()
-        http_req.method = "POST"
-        http_req.POST = {"kb_parent_id": str(self.board.id), "kb_element_id": str(self.tasks[1].id), "kb_new_status": self.board.workflow.kanbanboardstate_set.last().id}
-        response = self.client.post('/kanban-board/move-element/', data=http_req.POST)
+        data = {"kb_parent_id": str(self.board.id), "kb_element_id": str(self.tasks[1].id), "kb_new_status": self.board.workflow.kanbanboardstate_set.last().id}
+        response = self.client.post('/kanban-board/move-element/', data=data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Task.objects.get(pk=self.tasks[1].id).kanban_board_state.name, "Done")

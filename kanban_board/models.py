@@ -36,6 +36,15 @@ class KanbanBoard(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def kanban_board_grouped_elements(self):
+        states = list(KanbanBoardState.objects.filter(workflow=self.workflow))
+        board_elements = list(KanbanBoardElement.objects.filter(kanban_board_parent=self).select_subclasses())
+        elements_grouped = {x: [] for x in states}
+        for element in board_elements:
+            if element.kanban_board_state is not None:
+                elements_grouped[element.kanban_board_state].append(element)
+        return elements_grouped
 
 
 class KanbanBoardElement(models.Model):

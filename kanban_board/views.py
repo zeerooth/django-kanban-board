@@ -8,12 +8,8 @@ import json
 @csrf_protect
 def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
-    states = list(KanbanBoardState.objects.filter(workflow=board.workflow))
-    board_elements = list(KanbanBoardElement.objects.filter(kanban_board_parent=board).select_subclasses())
-    elements_grouped = {x: [] for x in states}
-    for element in board_elements:
-        if element.kanban_board_state is not None:
-            elements_grouped[element.kanban_board_state].append(element)
+    elements_grouped = board.kanban_board_grouped_elements()
+    
     return render(request, 'kanban_board/board.html', 
         context={
             "kanban_board": board, 
