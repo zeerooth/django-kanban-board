@@ -1,6 +1,6 @@
 from django.contrib import admin
 from ordered_model.admin import OrderedStackedInline, OrderedInlineModelAdminMixin
-from kanban_board.models import KanbanBoard, KanbanBoardState, Workflow
+from kanban_board.models import KanbanBoard, KanbanBoardState, Workflow, KanbanBoardElement
 
 class KanbanBoardStateInline(OrderedStackedInline):
     model = KanbanBoardState
@@ -8,10 +8,18 @@ class KanbanBoardStateInline(OrderedStackedInline):
     readonly_fields = ('workflow', 'move_up_down_links', )
     extra = 0
     ordering = ('order',)
+    list_display = ('name', 'workflow', 'element_count')
+
+    def element_count(self, obj):
+        return KanbanBoardElement.objects.filter(kanban_board_parent=obj).select_subclasses().count()
+
 
 class WorkflowAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
-    list_display = ('name', )
+    list_display = ('name', 'workflow_sequence')
     inlines = (KanbanBoardStateInline, )
+
+    def workflow_sequence(self, obj):
+        return "->".join(list(obj.kanbanboardstate_set.all()))
 
 admin.site.register(KanbanBoard)
 admin.site.register(KanbanBoardState)
