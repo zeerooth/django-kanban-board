@@ -22,7 +22,7 @@ class WorkflowAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
     inlines = (KanbanBoardStateInline, )
 
     def workflow_sequence(self, obj):
-        return "->".join([str(x) for x in list(obj.kanbanboardstate_set.all())])
+        return "->".join([str(x.name) for x in list(obj.kanbanboardstate_set.all())])
 
 admin.site.register(KanbanBoard, KanbanBoardAdmin)
 admin.site.register(KanbanBoardState)
