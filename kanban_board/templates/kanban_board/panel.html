@@ -11,7 +11,7 @@
                     <h2 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900"><a href="{{ request.path }}{{ board.id }}">{{ board.name }}</a></h2>
                     <div class="flex flex-wrap w-full flex-col">
                         {% for key, value in board.kanban_board_grouped_elements.items %}
-                            <h3>{{ key }}: {{ value }} </h3>
+                            <h3>{{ key }}: {{ value|length }} </h3>
                         {% endfor %}
                     </div>
                     <h3></h3>
