@@ -27,6 +27,7 @@ django = ">=2.0,<3.2"
 django-gm2m = "^1.0"
 django-model-utils = "^4.0.0"
 django-ordered-model = "^3.4.1"
+django-simple-history = "^2.11.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"

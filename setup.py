@@ -35,6 +35,6 @@ setup(
     packages=['kanban_board', 'kanban_board.migrations'],
     package_dir={"": "."},
     package_data={"kanban_board": ["static/kanban_board/css/*.css", "static/kanban_board/js/*.js", "templates/kanban_board/*.html"]},
-    install_requires=['django<3.1,>=2.0', 'django-gm2m==1.*,>=1.0.0', 'django-model-utils==4.*,>=4.0.0', 'django-ordered-model==3.*,>=3.4.1', 'toml==0.*,>=0.9.0'],
+    install_requires=['django<3.2,>=2.0', 'django-gm2m==1.*,>=1.0.0', 'django-model-utils==4.*,>=4.0.0', 'django-ordered-model==3.*,>=3.4.1', 'django-simple-history==2.*,>=2.11.0', 'toml==0.*,>=0.9.0'],
     extras_require={"dev": ["bandit==1.*,>=1.6.2", "dephell==0.*,>=0.8.3", "mypy==0.*,>=0.782.0", "pylint==2.*,>=2.5.3", "pytest==3.*,>=3.0.0", "pytest-cov==2.*,>=2.4.0"]},
 )
