@@ -3,9 +3,12 @@ from .models import KanbanBoard, KanbanBoardElement, KanbanBoardState
 from django.http import JsonResponse, HttpResponse
 from uuid import UUID
 from django.views.decorators.csrf import csrf_protect
+from django.conf import settings
+from django.contrib.auth.decorators import permission_required
 import json
 
 @csrf_protect
+@permission_required('kanban_board.kanban_board.view', login_url=settings.LOGIN_URL)
 def kanban_board(request, id):
     board = KanbanBoard.objects.get(pk=id)
     elements_grouped = board.kanban_board_grouped_elements()
@@ -16,6 +19,7 @@ def kanban_board(request, id):
             "kanban_board_elements": elements_grouped,
         })
 
+@permission_required('kanban_board.kanban_board.view', login_url=settings.LOGIN_URL)
 def board_panel(request):
     boards = KanbanBoard.objects.all()
     return render(request, 'kanban_board/panel.html', 
@@ -27,6 +31,7 @@ def element(request, model, id):
     pass
 
 @csrf_protect
+@permission_required('kanban_board.kanban_board_element.change', login_url=settings.LOGIN_URL)
 def change_element_status(request):
     # check method
     if not request.method == "POST":
