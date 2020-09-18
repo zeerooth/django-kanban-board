@@ -5,6 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from typing import List
 from model_utils.managers import InheritanceManager
 from ordered_model.models import OrderedModel
+from simple_history.models import HistoricalRecords
+from django.contrib.auth.models import User, Group 
 
 
 class Workflow(models.Model):
@@ -31,6 +33,9 @@ class KanbanBoard(models.Model):
     name = models.CharField(_("KanbanBoardName"), max_length=255)
     workflow = models.ForeignKey(Workflow, on_delete=models.PROTECT)
 
+    allowed_users = models.ManyToManyField(User)
+    allowed_groups = models.ManyToManyField(Group)
+
     class Meta:
         app_label = 'kanban_board'
     
@@ -56,6 +61,9 @@ class KanbanBoardElement(models.Model):
 
     objects = InheritanceManager()
 
+    changed_by = models.ForeignKey('auth.User', null=True, blank=True, on_delete=models.SET_NULL)
+    history = HistoricalRecords()
+
     def kanban_board_field_tuples(self):
         return [(x.name, str(getattr(self, x.name))) for x in self._meta.fields if x.name in self.kanban_board_fields]
     
@@ -63,6 +71,15 @@ class KanbanBoardElement(models.Model):
         if self.kanban_board_state is None:
             self.kanban_board_state = self.kanban_board_parent.workflow.kanbanboardstate_set.first()
         super(KanbanBoardElement, self).save(*args, **kwargs)
+
+    @property
+    def _history_user(self):
+        return self.changed_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.changed_by = value
+
 
     class Meta:
         app_label = 'kanban_board'

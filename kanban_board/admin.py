@@ -4,6 +4,7 @@ from kanban_board.models import KanbanBoard, KanbanBoardState, Workflow, KanbanB
 
 class KanbanBoardAdmin(admin.ModelAdmin):
     list_display = ('name', 'workflow', 'element_count')
+    filter_horizontal = ('allowed_users', 'allowed_groups')
 
     def element_count(self, obj):
         return KanbanBoardElement.objects.filter(kanban_board_parent=obj).select_subclasses().count()
