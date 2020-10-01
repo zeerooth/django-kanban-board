@@ -17,7 +17,7 @@ class Workflow(models.Model):
 
 
 class KanbanBoardState(OrderedModel):
-    workflow = models.ForeignKey(Workflow, on_delete=models.CASCADE)
+    workflow = models.ForeignKey("Workflow", on_delete=models.CASCADE)
     name = models.CharField(_("KanbanBoardStateName"), max_length=255)
     order_with_respect_to = 'workflow'
 
@@ -31,7 +31,7 @@ class KanbanBoardState(OrderedModel):
 class KanbanBoard(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     name = models.CharField(_("KanbanBoardName"), max_length=255)
-    workflow = models.ForeignKey(Workflow, on_delete=models.PROTECT)
+    workflow = models.ForeignKey("Workflow", on_delete=models.PROTECT)
 
     allowed_users = models.ManyToManyField(User)
     allowed_groups = models.ManyToManyField(Group)
@@ -54,8 +54,8 @@ class KanbanBoard(models.Model):
 
 class KanbanBoardElement(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
-    kanban_board_state = models.ForeignKey(KanbanBoardState, on_delete=models.SET_NULL, null=True, blank=True, editable=False)
-    kanban_board_parent = models.ForeignKey(KanbanBoard, on_delete=models.CASCADE)
+    kanban_board_state = models.ForeignKey("KanbanBoardState", on_delete=models.SET_NULL, null=True, blank=True, editable=False)
+    kanban_board_parent = models.ForeignKey("KanbanBoard", on_delete=models.CASCADE)
 
     kanban_board_fields: List[str] = []
 
