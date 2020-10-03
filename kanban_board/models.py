@@ -55,7 +55,7 @@ class KanbanBoard(models.Model):
 class KanbanBoardElement(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     kanban_board_state = models.ForeignKey("KanbanBoardState", on_delete=models.SET_NULL, null=True, blank=True, editable=False)
-    kanban_board_parent = models.ForeignKey("KanbanBoard", on_delete=models.CASCADE)
+    kanban_board_parent = models.ForeignKey("KanbanBoard", on_delete=models.SET_NULL, null=True, blank=True)
 
     kanban_board_fields: List[str] = []
 
