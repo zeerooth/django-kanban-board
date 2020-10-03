@@ -68,7 +68,7 @@ class KanbanBoardElement(models.Model):
         return [(x.name, str(getattr(self, x.name))) for x in self._meta.fields if x.name in self.kanban_board_fields]
     
     def save(self, *args, **kwargs):
-        if self.kanban_board_state is None:
+        if self.kanban_board_state is None and self.kanban_board_parent is not None:
             self.kanban_board_state = self.kanban_board_parent.workflow.kanbanboardstate_set.first()
         super(KanbanBoardElement, self).save(*args, **kwargs)
 
