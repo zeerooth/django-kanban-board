@@ -38,7 +38,7 @@ def change_element_status(request):
         return JsonResponse({"error": "bad_method", "details": "expected POST but got " + str(request.method)}, status=405)
 
     # get all required parameters
-    data = request.POST
+    data = json.loads(request.body)
     parent_id = UUID(data.get('kb_parent_id'))
     element_id = UUID(data.get('kb_element_id'))
     new_status = int(data.get('kb_new_status'))
